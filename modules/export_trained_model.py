@@ -10,7 +10,7 @@ def export_trained_model(model, epochs, loss, acc, hist, plot, training_data, mo
     model_loss = f"{loss:.3f}".replace(".","-")
     model_acc = f"{acc:.3f}".replace(".","-")
     training_shape = list(training_data.get_tf_images().get_shape())
-    export_file = f"{model_path}/{datetime.now().strftime('%y%m%d%H%M')}_e{epochs}_{model_acc}_{model_loss}_"+\
+    export_file = f"{model_path}/{datetime.now().strftime('%y%m%d%H%M')}_{model.name}_e{epochs}_{model_acc}_{model_loss}_"+\
     f"{training_shape[0]}_{training_shape[1]}_{training_shape[2]}.zip"
     
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -21,6 +21,14 @@ def export_trained_model(model, epochs, loss, acc, hist, plot, training_data, mo
         # save the labels
         with open(tmpdir+"/assets/labels_dict.pickle", "wb") as file:
             pickle.dump(training_data.get_labels_dict(), file, protocol=pickle.HIGHEST_PROTOCOL)
+
+        # save the TensorShape
+        with open(tmpdir+"/assets/tensorshape.pickle", "wb") as file:
+            pickle.dump(training_data.get_tf_images().shape, file, protocol=pickle.HIGHEST_PROTOCOL)
+
+        # write model summary
+        with open(tmpdir+"/assets/model_summary.txt", "w") as file:
+            model.summary(print_fn=lambda txt: file.write(txt + '\n'))
 
         # save the history
         with open(tmpdir+"/assets/history.pickle", "wb") as file:
