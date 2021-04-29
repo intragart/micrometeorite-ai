@@ -12,8 +12,12 @@ def load_model(model_file):
         # load the labels
         with open(f"{tmpdir}/assets/labels_dict.pickle", "rb") as file:
             labels = pickle.load(file)
+
+        # load tensor shape
+        with open(f"{tmpdir}/assets/tensorshape.pickle", "rb") as file:
+            tensorshape = pickle.load(file)
             
         # load model
         model = tf.keras.models.load_model(tmpdir)
             
-        return model, labels
+        return model, labels, tensorshape
