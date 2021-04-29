@@ -1,5 +1,6 @@
 TRAINED_MODEL = "" # path to model which is used to predict the given data
 PREDICT_DATA = "" # path to the data which should be used on the model
+PREDICT_RESULTS = "" # path where predictions should be saved
 TRAINING_DATA = "" # root directory for training data
 TEST_DATA = "" # root directory for test data
 MODEL_PATH = "" # path where the created model should be saved to
