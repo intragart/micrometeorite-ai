@@ -1,3 +1,4 @@
+# hallo
 import os # to interact with the system
 import tensorflow as tf # for modell training
 import cv2 as cv
