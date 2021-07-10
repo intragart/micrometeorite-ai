@@ -8,7 +8,7 @@ from datetime import datetime
 # own modules
 from modules.zip_dir import zip_dir
 
-def export_trained_model(model, epochs, loss, acc, hist, plot, training_data,
+def export_trained_model(model, epochs, loss, acc, hist, hist_plot, training_data,
 model_path):
     """Exports the trained model and its assets into a zipped file.
 
@@ -64,8 +64,8 @@ model_path):
             pickle.dump(hist.history, file, protocol=pickle.HIGHEST_PROTOCOL)
 
         # save the training history diagramm
-        plot.savefig(tmpdir+"/assets/fig.png", dpi=100, transparent=False,
-        facecolor="w")
+        hist_plot.savefig(tmpdir+"/assets/history.png", dpi=100, transparent=False,
+        facecolor="w", bbox_inches="tight")
     
         # check if model_path exists and create the path if not already exists
         if not os.path.exists(model_path):
