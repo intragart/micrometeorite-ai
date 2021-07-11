@@ -1,5 +1,5 @@
 tensorflow
 matplotlib
-opencv-contrib-python
+opencv-python
 tqdm
 jupyterlab
