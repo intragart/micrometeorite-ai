@@ -3,3 +3,6 @@ matplotlib
 opencv-python
 tqdm
 jupyterlab
+pandas
+sklearn
+numpy
