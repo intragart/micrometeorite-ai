@@ -1,15 +1,17 @@
 # import libraries
 import os
 import tempfile
+from keras_tuner.engine import tuner
 import tensorflow as tf
 import pickle
 from datetime import datetime
+import contextlib
 
 # own modules
 from modules.zip_dir import zip_dir
 
 def export_trained_model(model, epochs, loss, acc, hist, hist_plot, cm_plot,
-cm_data, roc_plot, exec_times, training_data, model_path):
+cm_data, roc_plot, exec_times, training_data, model_path, tuner=None):
     """Exports the trained model and its assets into a zipped file.
 
     Keyword arguments:
@@ -61,6 +63,11 @@ cm_data, roc_plot, exec_times, training_data, model_path):
         with open(tmpdir+"/assets/model_summary.txt", "w") as file:
             model.summary(print_fn=lambda txt: file.write(txt + '\n'))
 
+        # write val acc and val loss
+        with open(tmpdir+"/assets/val_acc_and_val_loss.txt", "w") as file:
+            file.write(f"val acc: {model_acc.replace('-', '.')}\n")
+            file.write(f"val loss: {model_loss.replace('-', '.')}\n")
+
         # save the training history
         with open(tmpdir+"/assets/history.pickle", "wb") as file:
             pickle.dump(hist.history, file, protocol=pickle.HIGHEST_PROTOCOL)
@@ -88,7 +95,12 @@ cm_data, roc_plot, exec_times, training_data, model_path):
             file.write(f"Stop: {exec_times[1]}\n")
             file.write(f"Elapsed: {exec_times[1] - exec_times[0]}\n")
 
-    
+        # save tuner summary if present
+        if tuner is not None:
+            with open(tmpdir+"/assets/tuner_summary.txt", "w") as file:
+                with contextlib.redirect_stdout(file):
+                    tuner.results_summary(100)
+
         # check if model_path exists and create the path if not already exists
         if not os.path.exists(model_path):
             os.makedirs(model_path, exist_ok=True)
