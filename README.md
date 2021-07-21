@@ -17,12 +17,15 @@ Needed `config.py`:
 - TRAINED_MODEL
 - PREDICT_DATA
 - PREDICT_RESULTS (optional)
+- CONTOUR_MODEL (optional)
 
 ## Training Models
 
 You can train your own models using `ModelTraining.ipynb` or `Hyperparameter_BayesianOptimization.ipynb` if you also want to do some Hyperparameteroptimization during the training process.
 
 This Repository doesn't have any training data to share. If you only want to play around with ML you can use a data set provided by Microsoft which features pictures of cats and dogs. You can download it [here](https://www.microsoft.com/en-us/download/details.aspx?id=54765).
+
+If you have enough pictures of micrometeorites you can precprocess them with `prepare_images.py` if needed. Preprocessing the pictures means cutting out the biggest contour on the image, replacing the background with white color and creating a 1:1-format picture of the object without stretching or compressing it.
 
 Needed `config.py`:
 
@@ -31,3 +34,4 @@ Needed `config.py`:
 - IMG_SIZE
 - TRAINING_EPOCHS
 - PERCENT_TEST
+- CONTOUR_MODEL (optional)
