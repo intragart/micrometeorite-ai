@@ -33,7 +33,7 @@ def load_predict_data(path, picture_width, picture_height):
         # path is file
         # load the current file, resize it and append the data to the
         # arrays
-        current_image = cv.imread(os.path.join(path,file))
+        current_image = cv.imread(os.path.join(path))
         resized_image = cv.resize(current_image, (picture_width, picture_height))
         loaded_files.append(current_image)
         predict_data.append(tf.constant(resized_image))
