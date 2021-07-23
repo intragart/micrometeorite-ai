@@ -71,7 +71,7 @@ def prepare_images(raw_root, target_path, debug_mode=False, subpath=""):
                         print("ERROR BGRV:", e)
                     else:
                         try:
-                            cv2.imwrite(target_path+subpath+entry+".jpg", pictures[-1])
+                            cv2.imwrite(target_path+subpath+entry+".png", pictures[-1])
                         except Exception as e:
                             print("ERROR IMWRITE:", e)
 
@@ -88,7 +88,7 @@ def prepare_images(raw_root, target_path, debug_mode=False, subpath=""):
                                 except Exception as e:
                                     print("ERROR IMSHOW:",e)
 
-                            plt.savefig(target_path+"/debug"+subpath+entry+".jpg", dpi=100, transparent=False,
+                            plt.savefig(target_path+"/debug"+subpath+entry+".png", dpi=100, transparent=False,
                             facecolor="w")
                             plt.close()
 
